@@ -8,7 +8,7 @@ public class GenericObjectPool<T> where T : class
 
     private List<PooledItem<T>> pooledItemsList = new List<PooledItem<T>>();
 
-    public T GetItem()
+    protected T GetItem()
     {
         if (pooledItemsList.Count > 0)
         {

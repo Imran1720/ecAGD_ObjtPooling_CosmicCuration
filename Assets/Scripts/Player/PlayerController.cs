@@ -1,8 +1,8 @@
+using CosmicCuration.Audio;
+using CosmicCuration.Bullets;
+using CosmicCuration.VFX;
 using System.Threading.Tasks;
 using UnityEngine;
-using CosmicCuration.Bullets;
-using CosmicCuration.Audio;
-using CosmicCuration.VFX;
 
 namespace CosmicCuration.Player
 {
@@ -98,11 +98,11 @@ namespace CosmicCuration.Player
         }
 
         private void FireBulletAtPosition(Transform fireLocation)
-        { 
+        {
             BulletController bulletToFire = bulletPool.GetBullet();
             bulletToFire.ConfigureBullet(fireLocation);
             GameService.Instance.GetSoundService().PlaySoundEffects(SoundType.PlayerBullet);
-        } 
+        }
 
         // PowerUp Logic:
         public void SetShieldState(ShieldState shieldStateToSet) => currentShieldState = shieldStateToSet;
@@ -126,14 +126,14 @@ namespace CosmicCuration.Player
         private async void PlayerDeath()
         {
             Object.Destroy(playerView.gameObject);
-            
+
             GameService.Instance.GetVFXService().PlayVFXAtPosition(VFXType.PlayerExplosion, playerView.transform.position);
             GameService.Instance.GetSoundService().PlaySoundEffects(SoundType.PlayerDeath);
 
             currentShootingState = ShootingState.NotFiring;
             GameService.Instance.GetEnemyService().SetEnemySpawning(false);
             GameService.Instance.GetPowerUpService().SetPowerUpSpawning(false);
-            
+
             // Wait for Player Ship Destruction.
             await Task.Delay(playerScriptableObject.deathDelay * 1000);
             GameService.Instance.GetUIService().EnableGameOverUI();
