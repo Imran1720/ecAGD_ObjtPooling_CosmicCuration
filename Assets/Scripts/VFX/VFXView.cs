@@ -10,7 +10,8 @@ namespace CosmicCuration.VFX
         private VFXController controller;
 
         [SerializeField] private List<VFXData> particleSystemMap;
-        private ParticleSystem currentPlayingVFX;
+
+        private GameObject currentPlayingVFX;
 
         public void SetController(VFXController controllerToSet) => controller = controllerToSet;
 
@@ -20,14 +21,11 @@ namespace CosmicCuration.VFX
             gameObject.transform.position = positionToSet;
             foreach (VFXData item in particleSystemMap)
             {
-                Debug.Log(item.particleSystem.name + " " + item.particleSystem.gameObject.activeSelf);
                 if (item.type == type)
                 {
-                    item.particleSystem.gameObject.SetActive(true);
+                    item.particleSystem.SetActive(true);
                     currentPlayingVFX = item.particleSystem;
                 }
-                else
-                    item.particleSystem.gameObject.SetActive(false);
             }
         }
 
@@ -35,12 +33,12 @@ namespace CosmicCuration.VFX
         {
             if (currentPlayingVFX != null)
             {
-                if (currentPlayingVFX.isStopped)
+                if (currentPlayingVFX.GetComponent<ParticleSystem>().isStopped)
                 {
-                    //currentPlayingVFX.gameObject.SetActive(false);
-                    //currentPlayingVFX = null;
-                    //controller.OnParticleEffectCompleted();
-                    //gameObject.SetActive(false);
+                    currentPlayingVFX.SetActive(false);
+                    currentPlayingVFX = null;
+                    controller.OnParticleEffectCompleted();
+                    gameObject.SetActive(false);
                 }
             }
         }
@@ -53,5 +51,5 @@ namespace CosmicCuration.VFX
 public struct VFXData
 {
     public VFXType type;
-    public ParticleSystem particleSystem;
+    public GameObject particleSystem;
 }
