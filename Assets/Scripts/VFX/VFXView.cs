@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CosmicCuration.VFX
@@ -5,20 +6,41 @@ namespace CosmicCuration.VFX
     public class VFXView : MonoBehaviour
     {
         private VFXController controller;
-        private ParticleSystem vfx;
 
+
+        [SerializeField] private List<VFXData> particleData;
+        private ParticleSystem curretnParticleSystem;
         public void SetController(VFXController controllerToSet) => controller = controllerToSet;
 
-        public void ConfigureAndPlay(Vector2 positionToSet)
+        public void ConfigureAndPlay(VFXType type, Vector2 positionToSet)
         {
-            transform.position = positionToSet;
-            vfx = GetComponent<ParticleSystem>();
+            gameObject.SetActive(true);
+            gameObject.transform.position = positionToSet;
+            foreach (var item in particleData)
+            {
+                if (item.type == type)
+                {
+                    item.particleSystem.gameObject.SetActive(true);
+                    curretnParticleSystem = item.particleSystem;
+                }
+                else
+                {
+                    item.particleSystem.gameObject.SetActive(false);
+                }
+            }
+
         }
 
         private void Update()
         {
-            if (vfx != null && vfx.isStopped)
-                    Destroy(gameObject);
+            if (curretnParticleSystem != null && curretnParticleSystem.isStopped)
+            {
+                curretnParticleSystem.gameObject.SetActive(false);
+                curretnParticleSystem = null;
+                controller.OnParticleEffectCompleted();
+                gameObject.SetActive(false);
+            }
         }
+
     }
 }

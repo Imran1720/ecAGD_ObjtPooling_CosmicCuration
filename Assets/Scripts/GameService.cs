@@ -1,14 +1,14 @@
 #region Namespaces
-using UnityEngine;
-using TMPro;
 using CosmicCuration.Audio;
-using CosmicCuration.Enemy;
 using CosmicCuration.Bullets;
-using CosmicCuration.VFX;
+using CosmicCuration.Enemy;
 using CosmicCuration.Player;
+using CosmicCuration.PowerUps;
 using CosmicCuration.UI;
 using CosmicCuration.Utilities;
-using CosmicCuration.PowerUps; 
+using CosmicCuration.VFX;
+using TMPro;
+using UnityEngine;
 #endregion
 
 
@@ -29,6 +29,7 @@ public class GameService : GenericMonoSingleton<GameService>
     [SerializeField] private PlayerView playerPrefab;
     [SerializeField] private BulletView playerBulletPrefab;
     [SerializeField] private EnemyView enemyPrefab;
+    [SerializeField] private VFXView vfxPrefab;
     #endregion
 
     #region Scriptable Objects
@@ -52,7 +53,7 @@ public class GameService : GenericMonoSingleton<GameService>
         playerService = new PlayerService(playerPrefab, playerScriptableObject, playerBulletPrefab, playerBulletScriptableObject);
         powerUpService = new PowerUpService(powerUpScriptableObject);
         enemyService = new EnemyService(enemyPrefab, enemyScriptableObject);
-        vfxService = new VFXService(vfxScriptableObject);
+        vfxService = new VFXService(vfxPrefab);
     }
 
     private void Update()
@@ -72,7 +73,7 @@ public class GameService : GenericMonoSingleton<GameService>
 
     public SoundService GetSoundService() => soundService;
 
-    public UIView GetUIService() => uiService; 
+    public UIView GetUIService() => uiService;
     #endregion
 
 }
