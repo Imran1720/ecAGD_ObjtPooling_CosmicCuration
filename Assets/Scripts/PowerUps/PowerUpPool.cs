@@ -34,5 +34,6 @@ namespace CosmicCuration.PowerUps
                 throw new NotSupportedException("Power Up not Supported!!");
             }
         }
+
     }
 }
