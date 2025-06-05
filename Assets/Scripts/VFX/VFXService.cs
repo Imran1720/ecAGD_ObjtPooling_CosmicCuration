@@ -5,19 +5,16 @@ namespace CosmicCuration.VFX
 {
     public class VFXService
     {
-        private List<VFXData> vfxData = new List<VFXData>();
-        private VFXPool vFXPool;
-        public VFXService(VFXView vfxView)
-        {
-            vFXPool = new VFXPool(vfxView);
-        }
+        private VFXPool vfxPool;
+
+        public VFXService(VFXView vfxPrefab) => vfxPool = new VFXPool(vfxPrefab);
 
         public void PlayVFXAtPosition(VFXType type, Vector2 spawnPosition)
         {
-            VFXController vfxToPlay = vFXPool.GetVFXController();
+            VFXController vfxToPlay = vfxPool.GetVFX();
             vfxToPlay.Configure(type, spawnPosition);
         }
 
-        public void ReturnVFXToPool(VFXController controller) => vFXPool.ReturnItem(controller);
+        public void ReturnVFXToPool(VFXController vfxToReturn) => vfxPool.ReturnItem(vfxToReturn);
     }
 }

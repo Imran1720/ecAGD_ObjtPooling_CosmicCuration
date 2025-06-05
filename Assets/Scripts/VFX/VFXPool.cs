@@ -11,11 +11,8 @@ namespace CosmicCuration.VFX
 
         public VFXPool(VFXView vfxPrefab) => this.vfxPrefab = vfxPrefab;
 
-        public VFXController GetVFXController() => GetItem<VFXController>();
+        public VFXController GetVFX() => GetItem<VFXController>();
 
-        protected override VFXController CreateItem<T>()
-        {
-            return new VFXController(vfxPrefab);
-        }
+        protected override VFXController CreateItem<T>() => new VFXController(vfxPrefab);
     }
 }
