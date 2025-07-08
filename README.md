@@ -5,6 +5,12 @@ The main focus was on **performance optimization** through reusing frequently sp
 
 ---
 
+## Gameplay
+Click on following image to view gameplay. 
+[![Image](https://github.com/user-attachments/assets/a4a06e29-bdd7-4023-9159-8366093ad601)](https://drive.google.com/file/d/1BKmPB_qAGTnqTP6d_u1YTaq798-aRY5i/view?usp=sharing)
+
+---
+
 ## What I Learned
 
 -  Practical application of the **Object Pooling Pattern** in real-time gameplay.
